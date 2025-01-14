@@ -1,0 +1,31 @@
+kafka:
+  bootstrap_servers: "localhost:9092"
+  group_id: "fraud_detection_group"
+  topics:
+    transactions: "transactions"
+    alerts: "fraud_alerts"
+
+mongodb:
+  host: "localhost"
+  port: 27017
+  database: "fraud_detection"
+
+fraud_detection:
+  alert_threshold: 0.8
+  model:
+    path: "models/fraud_detector.joblib"
+    contamination: 0.1
+    random_state: 42
+  feature_engineering:
+    lookback_days: 30
+    min_transactions: 10
+
+email:
+  smtp_server: "smtp.gmail.com"
+  port: 587
+  alert_template: "templates/fraud_alert_template.html"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/fraud_detection.log"
