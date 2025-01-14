@@ -1,0 +1,24 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /app/logs/*.log
+  fields:
+    service: fraud-detection
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  index: "fraud-detection-logs-%{+yyyy.MM.dd}"
+
+setup.template:
+  name: "fraud-detection"
+  pattern: "fraud-detection-*"
+  enabled: true
+
+setup.kibana:
+  host: "kibana:5601"
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
